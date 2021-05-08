@@ -96,7 +96,29 @@ module.exports = {
 					message: "the image requested to be deleted can not be found"
 				});
 			}
-
+            /*
+            const path = `media/${results[0].path}`;
+            fs.readFile(path, (err, data) => {
+                if (err) {
+                    //return a response in the json format
+                    return res.status(500).json({
+                        success: 0,
+                        message: "could not retrieve image"
+                    });
+                }
+                if (!data) {
+                    return res.status(404).json({
+                        success: 0,
+                        message: "media not found"
+                    });
+                }
+                //we get results and send it to users
+                return res.status(200).json({
+                    success: 1,
+                    data: data
+                });
+            });
+            */
             return res.status(200).json({
                 success: 1,
                 data: results
@@ -169,37 +191,22 @@ module.exports = {
                 });
             }
             //no error but result is blank
-			if (!results.length) {
+            if (!results.length) {
 				return res.status(404).json({
 					success: 0,
 					message: "images matching the description can not be found"
 				});
 			}
 
-            var res = []
+            var resArr = [];
             for (var i = 0; i < results.length; i++) {
-                var res = [];
                 const path = `media/${results[i].path}`;
-                fs.readFile(path, (err, data) => {
-                    if (err) {
-                        //return a response in the json format
-                        return res.status(500).json({
-                            success: 0,
-                            message: "could not retrieve image"
-                        });
-                    }
-                    if (!data) {
-                        return res.status(404).json({
-                            success: 0,
-                            message: "media not found"
-                        });
-                    }
-                    res.push(data);
-                });
+                resArr.push(fs.readFileSync(path))
             }
+            //we get results and send it to users
             return res.status(200).json({
                 success: 1,
-                data: res
+                data: resArr
             });
         });
     }
