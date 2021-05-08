@@ -6,8 +6,8 @@ const { sign } = require("jsonwebtoken");
 
 //controllers that handle all the services from user.service.js
 module.exports = {
-  createUser: (req, res) => {
-    const body = req.body;
+	createUser: (req, res) => {
+  	const body = req.body;
 	  //ensure we have necessary parameters in the request body
 	  if (!body.password || !body.userName) {
 			return res.status(422).json({
@@ -17,22 +17,12 @@ module.exports = {
 	  }
 	  //ensure the password and username meets standards. for now just set loose standards
 	  //but if time allows, can add extra requirements to the password and username
-	  if (body.password.length < 5 || body.username.length < 5) {
+	  if (body.password.length < 5 || body.userName.length < 5) {
 			return res.status(422).json({
 				success: 0,
 				message: "invalid username or password length",
 			});
 	  }
-
-		//make sure the username has not been taken
-		getUserbyUserName(body.userName, (err, results) => {
-			if (err) {
-				return res.status(409.json({
-					success: 0,
-					message: "username is already taken",
-				});
-			}
-		});
 
 		const salt = genSaltSync(10);
 		//using the salt we can generate the hash encrypted password and store it in body.password
@@ -41,12 +31,17 @@ module.exports = {
 		//the second parameter is a function that takes either err or results
 		create(body, (err, results) => {
 				if (err) {
-						//return a response in the json format
-						console.log(err);
-						return res.status(500).json({
+					//return a response in the json format
+					if (err.code == "ER_DUP_ENTRY") {
+						return res.status(409).json({
 							success: 0,
-							message: "database connection error",
+							message: "username was already taken",
 						});
+					}
+					return res.status(500).json({
+						success: 0,
+						message: "database connection error",
+					});
 				}
 				//we get results and send it to users
 				return res.status(201).json({
