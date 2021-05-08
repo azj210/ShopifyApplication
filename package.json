@@ -1,0 +1,35 @@
+{
+  "name": "shopifyapplication",
+  "version": "1.0.0",
+  "description": "Alex Jiang's Shopify Application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azj210/ShopifyApplication.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/azj210/ShopifyApplication/issues"
+  },
+  "homepage": "https://github.com/azj210/ShopifyApplication#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "file-system": "^2.2.2",
+    "find-config": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
+    "supertest": "^6.1.3"
+  }
+}
