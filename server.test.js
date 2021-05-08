@@ -1,9 +1,12 @@
 let app = require("./server");
 const request = require('supertest');
 const jwt = require('jsonwebtoken');
+const fs = require('file-system');
+const FormData = require('form-data');
+const { sign } = require("jsonwebtoken");
 
 describe('Test User Creation', () => {
-    it('serves unprocessable entity for no password in body', async() => {
+    it('serves unprocessable entity for no password in body', () => {
         const data = { userName: 'test'};
         return request(app).post('/api/users/create')
         .send(data)
@@ -50,6 +53,7 @@ describe('Test User Creation', () => {
     so if I create a user once, I wouldn't be able to create that same user again
     unless I also make another endpoint to delete the user after the creation
     */
+
 });
 
 describe('Test User Login', () => {
@@ -102,6 +106,74 @@ describe('Test User Login', () => {
         });
     });
 })
+
+describe('Test Image Creation', () => {
+    const token = sign({ result: "results" }, "qwe1234", { expiresIn: "3h" });
+    const uid = 4;
+    const validFile = fs.createReadStream('mediaTest/test.png');
+
+    beforeEach(() => {
+        fs.writeFileSync('media/test.png');
+    })
+    afterEach(() => {
+        fs.unlinkSync('media/test.png');
+    });
+
+    it('serves unprocessable entity if file is not given', async () => {
+        return request(app).post('/api/media/add')
+        .field('uid', uid)
+        .field('name', 'testFile')
+        .field('description', 't')
+        .set('Authorization', 'Bearer ' + token)
+        .expect(422).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+
+    it('serves unprocessable entity if uid is not given', async () => {
+        return request(app).post('/api/media/add')
+        .field('name', 'testFile')
+        .field('description', 't')
+        .attach('file', validFile)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(422).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+
+    it('serves unprocessable entity if file name is not given', async () => {
+        return request(app).post('/api/media/add')
+        .field('uid', uid)
+        .field('description', 't')
+        .attach('file', validFile)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(422).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+
+    it('serves unprocessable entity if file name is greater than 20 characters', () => {
+        const fileName = 't'.repeat(21);
+        return request(app).post('/api/media/add')
+        .field('uid', uid)
+        .field('name', fileName)
+        .field('description', 't')
+        .attach('file', validFile)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(422).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+
+    it('processes a valid file request', () => {
+        fs.unlinkSync('media/test.png');
+
+        return request(app).post('/api/media/add')
+        .field('uid', uid)
+        .field('name', 'testFile')
+        .field('description', 't')
+        .attach('file', validFile)
+        .set('Authorization', 'Bearer ' + token)
+        .expect(201).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+});
 
 afterAll(done => {
     server.close();

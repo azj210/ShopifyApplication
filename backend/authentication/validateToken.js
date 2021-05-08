@@ -15,7 +15,6 @@ module.exports = {
             message: "Invalid Token"
           });
         } else {
-          console.log("success");
           req.decoded = decoded;
           next();
         }
