@@ -38,8 +38,7 @@ module.exports = {
                     message: "failed to save file"
                 });
             }
-            console.log('File saved.');
-        })
+        });
 
         const data = {
             uid: body.uid,
@@ -47,7 +46,7 @@ module.exports = {
             date: time,
             description: body.description,
             name: body.name
-        }
+        };
 
         addImagePath(data, (err, results) => {
             if (err) {

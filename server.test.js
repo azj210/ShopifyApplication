@@ -111,6 +111,7 @@ describe('Test Image Creation', () => {
     const token = sign({ result: "results" }, "qwe1234", { expiresIn: "3h" });
     const uid = 4;
     const validFile = fs.createReadStream('mediaTest/test.png');
+    //const validFile = Buffer.from('mediaTest/test.png');
 
     beforeEach(() => {
         fs.writeFileSync('media/test.png');
@@ -118,6 +119,9 @@ describe('Test Image Creation', () => {
     afterEach(() => {
         fs.unlinkSync('media/test.png');
     });
+    afterAll(() => {
+        fs.writeFileSync('media/test.png');
+    })
 
     it('serves unprocessable entity if file is not given', async () => {
         return request(app).post('/api/media/add')
@@ -161,7 +165,7 @@ describe('Test Image Creation', () => {
             expect(response).toBeTruthy()});
     }, 10000);
 
-    it('processes a valid file request', () => {
+    it('processes a valid file creation request', () => {
         fs.unlinkSync('media/test.png');
 
         return request(app).post('/api/media/add')
@@ -171,6 +175,21 @@ describe('Test Image Creation', () => {
         .attach('file', validFile)
         .set('Authorization', 'Bearer ' + token)
         .expect(201).then(response => {
+            expect(response).toBeTruthy()});
+    }, 10000);
+});
+
+describe('Test Image Deletion', () => {
+    const token = sign({ result: "results" }, "qwe1234", { expiresIn: "3h" });
+    const uid = 4;
+
+    it('processes a valid file deletion request', () => {
+        const data = { uid: 4, name: "testFile" };
+
+        return request(app).delete('/api/media/delete')
+        .set('Authorization', 'Bearer ' + token)
+        .send(data)
+        .expect(200).then(response => {
             expect(response).toBeTruthy()});
     }, 10000);
 });
