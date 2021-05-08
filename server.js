@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const userRouter = require("./backend/api/users/user.router");
-const mediaRouter = require("./backend/api/media/media.router")
+const mediaRouter = require("./backend/api/media/media.router");
 const cors = require("cors");
 
 var corsOptions = {

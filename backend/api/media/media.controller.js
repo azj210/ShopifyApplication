@@ -1,5 +1,4 @@
-//const { addImagePath, deleteImage, getImageByName, getImagesBySpec, getDate } = require("./media.service");
-const { addImagePath, getDate } = require("./media.service");
+const { addImagePath, deleteImage, getImageByName, getImagesBySpec, getDate } = require("./media.service");
 const {checkToken} = require("../../authentication/validateToken");
 const fs = require('file-system');
 
@@ -33,7 +32,12 @@ module.exports = {
         const path = `media/${req.file.originalname}`;
 
         fs.writeFile(path, req.file.buffer, function(err) {
-            if (err) throw err
+            if (err) {
+                return res.status(500).json({
+                    success: 0,
+                    message: "failed to save file"
+                });
+            }
             console.log('File saved.');
         })
 
@@ -68,5 +72,94 @@ module.exports = {
         });
     },
 
+    deleteImage: (req, res) => {
+        //1 of the required fields is missing
+        if (!req.body.uid || !req.body.name) {
+            return res.status(422).json({
+                success: 0,
+                message: "one of the fields was missing"
+            });
+        }
 
+        const body = req.body;
+        deleteImage(body, (err, results) => {
+            if (err) {
+                return res.status(500).json({
+                    success: 0,
+                    message: "database connection error"
+                });
+            }
+            //no error but result is blank
+			if (!results.affectedRows) {
+				return res.status(404).json({
+					success: 0,
+					message: "the image requested to be deleted can not be found"
+				});
+			}
+            return res.status(200).json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+
+    getImageByName: (req, res) => {
+        if (!req.body.name) {
+            return res.status(422).json({
+                success: 0,
+                message: "image name is missing"
+            });
+        }
+
+        const body = req.body;
+        getImageByName(body, (err, results) => {
+            if (err) {
+                return res.status(500).json({
+                    success: 0,
+                    message: "database connection error"
+                });
+            }
+            //no error but result is blank
+			if (!results.length) {
+				return res.status(404).json({
+					success: 0,
+					message: "the image requested can not be found"
+				});
+			}
+            return res.status(200).json({
+                success: 1,
+                data: results
+            });
+        });
+    },
+
+    getImagesBySpec: (req, res) => {
+        if (!req.body.description) {
+            return res.status(422).json({
+                success: 0,
+                message: "image description is missing"
+            });
+        }
+
+        const body = req.body;
+        getImagesBySpec(body, (err, results) => {
+            if (err) {
+                return res.status(500).json({
+                    success: 0,
+                    message: "database connection error"
+                });
+            }
+            //no error but result is blank
+			if (!results.length) {
+				return res.status(404).json({
+					success: 0,
+					message: "images matching the description can not be found"
+				});
+			}
+            return res.status(200).json({
+                success: 1,
+                data: results
+            });
+        });
+    }
 };

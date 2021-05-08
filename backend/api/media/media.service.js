@@ -21,6 +21,48 @@ module.exports = {
         );
     },
 
+    deleteImage: (data, callBack) => {
+        pool.query(
+            `delete from media where uid = ? and name = ?`,
+            [
+                data.uid,
+                data.name
+            ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
+
+    getImageByName: (data, callBack) => {
+        pool.query(
+            `select * from media where name = ?`,
+            [ data.name ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
+
+    getImagesBySpec: (data, callBack) => {
+        pool.query(
+            `select * from media where description = ?`,
+            [ data.description ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
+
     //get the current date
     getDate: () => {
         const today = new Date();
