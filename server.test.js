@@ -104,6 +104,6 @@ describe('Test User Login', () => {
 })
 
 afterAll(done => {
-  server.close();
-  done();
+    server.close();
+    done();
 });

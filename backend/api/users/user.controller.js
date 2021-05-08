@@ -1,4 +1,4 @@
-const { create, getUserbyUserName, getUserbyUID } = require("./user.service");
+const { create, getUserbyUserName } = require("./user.service");
 const { genSaltSync, hashSync, compareSync } = require("bcrypt");
 const {checkToken} = require("../../authentication/validateToken");
 //sign creates json tokens
