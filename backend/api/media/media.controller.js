@@ -1,4 +1,4 @@
-const { addImagePath, deleteImage, getImageByName, getImagesBySpec, getDate } = require("./media.service");
+const { addImagePath, deleteImage, getImageByName, getImageByNameRestricted, getImagesBySpec, getDate } = require("./media.service");
 const {checkToken} = require("../../authentication/validateToken");
 const fs = require('file-system');
 
@@ -77,12 +77,13 @@ module.exports = {
         if (!req.body.uid || !req.body.name) {
             return res.status(422).json({
                 success: 0,
-                message: "one of the fields was missing"
+                message: "one or more of the required fields was missing"
             });
         }
 
+        //first get the image, then both physically delete it from the directory and delete its path from the database
         const body = req.body;
-        deleteImage(body, (err, results) => {
+        getImageByNameRestricted(body, (err, results) => {
             if (err) {
                 return res.status(500).json({
                     success: 0,
@@ -90,40 +91,40 @@ module.exports = {
                 });
             }
             //no error but result is blank
-			if (!results.affectedRows) {
+			if (!results.length) {
 				return res.status(404).json({
 					success: 0,
-					message: "the image requested to be deleted can not be found"
+					message: "the image requested can not be found"
 				});
 			}
-            /*
+
             const path = `media/${results[0].path}`;
-            fs.readFile(path, (err, data) => {
+            fs.unlink(path, (err) => {
                 if (err) {
                     //return a response in the json format
                     return res.status(500).json({
                         success: 0,
-                        message: "could not retrieve image"
+                        message: "could not delete image"
                     });
                 }
-                if (!data) {
-                    return res.status(404).json({
+            });
+
+            deleteImage(body, (err, results) => {
+                if (err) {
+                    //if have time write a rollback function here on the physical image deletion
+                    return res.status(500).json({
                         success: 0,
-                        message: "media not found"
+                        message: "database connection error"
                     });
                 }
-                //we get results and send it to users
+
                 return res.status(200).json({
                     success: 1,
-                    data: data
+                    data: results
                 });
             });
-            */
-            return res.status(200).json({
-                success: 1,
-                data: results
-            });
         });
+
     },
 
     getImageByName: (req, res) => {

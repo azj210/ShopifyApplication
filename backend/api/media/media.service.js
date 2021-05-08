@@ -51,6 +51,19 @@ module.exports = {
         );
     },
 
+    getImageByNameRestricted: (data, callBack) => {
+        pool.query(
+            `select * from media where name = ? and uid = ?`,
+            [ data.name, data.uid ],
+            (error, results, fields) => {
+                if (error) {
+                    return callBack(error);
+                }
+                return callBack(null, results);
+            }
+        );
+    },
+
     getImagesBySpec: (data, callBack) => {
         pool.query(
             `select * from media where description = ?`,
