@@ -1,4 +1,5 @@
 const pool = require("../../config/database");
+const fs = require('file-system');
 
 module.exports = {
     addImagePath: (data, callBack) => {
