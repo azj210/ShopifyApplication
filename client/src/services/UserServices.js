@@ -13,7 +13,7 @@ const login = data => {
     return http.post("/users/login", data);
 };
 
-const createMedia = (token, data) => {
+const createImg = (token, data) => {
     const authHTTP = httpA(token);
     return authHTTP.post("/media/add", data, {
         headers: {
@@ -42,7 +42,7 @@ export default {
     checkToken,
     create,
     login,
-    createMedia,
+    createImg,
     deleteImg,
     getImgByName,
     getImgBySpec
