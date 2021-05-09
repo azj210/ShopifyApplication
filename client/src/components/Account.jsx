@@ -162,7 +162,7 @@ function Account (props) {
             <div>
                 <div className="form-group">
                     <input type="text" placeholder="Search and Display..." value = {newSearch} onChange={handleNewSearch} id="searchInput" />
-                    <select className="form-control dashboard-select-style" name="option" value={searchChoice} onChange={handleChoice}>
+                    <select className="form-control dashboard-select-style" name="option" value={searchChoice} onChange={handleChoice} id="choiceInput">
                         <option>Search By File Name</option>
                         <option>Search By File Description</option>
                     </select>

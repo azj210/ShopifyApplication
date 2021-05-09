@@ -25,7 +25,7 @@ describe('Account Page Test', () => {
       </Router>,
       div
     );
-  })
+  });
 
   it("sends call to write file", () => {
     var spy = jest.fn();
@@ -59,6 +59,91 @@ describe('Account Page Test', () => {
     }, 550);
   });
 
-})
+  it("sends call to search file by name", () => {
+    var spy = jest.fn();
+    var spyClick = jest.fn();
 
+    var wrapper = shallow(<Account onChange={spy} onClick={spyClick} />);
+    DataService.getImgByName = jest
+      .fn()
+      .mockResolvedValue({ data: { success : 1, data: {insertId: 2} } });
 
+    wrapper
+      .find("#searchInput")
+      .simulate("change", { target: { value: "NewName" } });
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+
+    wrapper
+      .find("#choiceInput")
+      .simulate("change", { target: { value: "Search By File Name" } });
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+
+    wrapper.find("#sendSearch").simulate("click");
+    setTimeout(() => {
+      expect(spyClick).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+  });
+
+  it("sends call to search file by description", () => {
+    var spy = jest.fn();
+    var spyClick = jest.fn();
+
+    var wrapper = shallow(<Account onChange={spy} onClick={spyClick} />);
+    DataService.getImgByName = jest
+      .fn()
+      .mockResolvedValue({ data: { success : 1, data: {insertId: 2} } });
+
+    wrapper
+      .find("#searchInput")
+      .simulate("change", { target: { value: "NewDescription" } });
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+
+    wrapper
+      .find("#choiceInput")
+      .simulate("change", { target: { value: "Search By File Description" } });
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+
+    wrapper.find("#sendSearch").simulate("click");
+    setTimeout(() => {
+      expect(spyClick).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+  });
+
+  it("sends call to search file by description", () => {
+    var spy = jest.fn();
+    var spyClick = jest.fn();
+
+    var wrapper = shallow(<Account onChange={spy} onClick={spyClick} />);
+    DataService.getImgByName = jest
+      .fn()
+      .mockResolvedValue({ data: { success : 1, data: {insertId: 2} } });
+
+    wrapper
+      .find("#deleteInput")
+      .simulate("change", { target: { value: "NewName" } });
+    setTimeout(() => {
+      expect(spy).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+
+    wrapper.find("#deleteMedia").simulate("click");
+    setTimeout(() => {
+      expect(spyClick).toHaveBeenCalledTimes(1);
+      done();
+    }, 550);
+  });
+});
