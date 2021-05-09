@@ -20,9 +20,9 @@ describe('Account Page Test', () => {
   it("renders without crashing", () => {
     const div = document.createElement("div");
     ReactDOM.render(
-      <BrowserRouter>
+      <Router>
         <Account/>
-      </BrowserRouter>,
+      </Router>,
       div
     );
   })
