@@ -17,7 +17,13 @@ it("serves invalid login with invalid password", () => {
   DataService.login = jest
     .fn()
     .mockResolvedValue({ data: { success: 1, data: "abc123" } });
-  wrapper.find("#login_button").simulate("click");
+  wrapper
+    .find("#login_button")
+    .simulate("click");
+  setTimeout(() => {
+    expect(spy).toHaveBeenCalledTimes(1);
+    done();
+  }, 550);
   DataService.login = jest
     .fn()
     .mockResolvedValue({ data: { success: 0, data: "Invalid password" } });
@@ -32,8 +38,20 @@ it("serves valid login with valid password", () => {
   var spyClick = jest.fn();
   var wrapper = shallow(<Login onChange={spy} onClick={spyClick} />);
 
-  wrapper.find("#userName").simulate("change", { target: { value: "abc123" } });
-  wrapper.find("#password").simulate("change", { target: { value: "abc123" } });
+  wrapper
+    .find("#userName")
+    .simulate("change", { target: { value: "abc123" } });
+  setTimeout(() => {
+    expect(spy).toHaveBeenCalledTimes(1);
+    done();
+  }, 550);
+  wrapper
+    .find("#password")
+    .simulate("change", { target: { value: "abc123" } });
+  setTimeout(() => {
+    expect(spy).toHaveBeenCalledTimes(1);
+    done();
+  }, 550);
   DataService.login = jest
     .fn()
     .mockResolvedValue({ data: { success: 1, data: "abc123" } });
