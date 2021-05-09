@@ -7,10 +7,8 @@ import DataService from './services/UserServices';
 import Home from './components/Home';
 import Redirect from './components/Redirect';
 import Register from './components/Register';
-/*
 import Login from './components/Login';
 import Account from './components/Account';
-*/
 
 function App() {
   const history = useHistory();
@@ -51,7 +49,9 @@ function App() {
 				<Route path="/" exact={true} component={() => <Redirect checkAuth={checkAuth}/>} /> :
 				<Route path="/" exact={true} component={() => <Home checkAuth={checkAuth} authenticated={authenticated} />} />}
         <Route path="/register" component={() => <Register checkAuth={checkAuth} authenticated={authenticated}/>} />
-			</div>
+        <Route path="/login" component={() => <Login checkAuth={checkAuth} authenticated={authenticated}/>} />
+        <Route path="/account" component={() => <Account checkAuth={checkAuth} authenticated={authenticated}/>} />
+      </div>
 		</Router>
 	);
 };
