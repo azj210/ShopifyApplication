@@ -12,10 +12,6 @@ function Login (props) {
 
     const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() => {
-        props.checkAuth();
-    });
-
     function handleChange(event) {
         const { value, name } = event.target;
         setLoginInfo(prevValue => {
@@ -72,9 +68,9 @@ function Login (props) {
                 />
             </div>
             <div className="form-group preauth-select-style">
-                <label for="loginPW">Password</label>
+                <label for="password">Password</label>
                 <input
-                    id="pasword"
+                    id="password"
                     type="password"
                     className="form-control"
                     name="password"
@@ -85,7 +81,7 @@ function Login (props) {
                 />
             </div>
 
-            <button type="submit" className="btn btn-info form-control preauth-loginbutton-style" onClick={logUserIn}>Login</button>
+            <button type="submit" className="btn btn-info form-control preauth-loginbutton-style" id="login_button" onClick={logUserIn}>Login</button>
         </div>
     );
 };
