@@ -3,15 +3,12 @@ import { Link } from 'react-router-dom';
 import DataService from '../services/UserServices';
 
 function Register(props) {
-
     const initialFormState= {
         userName: "",
         password: ""
     };
 
-
     const [form, setForm] = useState({initialFormState});
-
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
@@ -43,7 +40,6 @@ function Register(props) {
         else if (form.password && form.password.length < 5) {
             alert("Password must be at least 5 characters long!");
         }
-
         event.preventDefault();
     };
 
@@ -51,14 +47,13 @@ function Register(props) {
         <div>
           {submitted ? (
             <header className="notification">
-              <h4>You signed up successfully!</h4>
-              <Link to ="/login" className="btn btn-info" id="register_to_login">
-                Login
-              </Link>
+                <h4>You signed up successfully!</h4>
+                <Link to ="/login" className="btn btn-info" id="register_to_login">
+                    Login
+                </Link>
             </header>
           ) : (
             <div className="page-form">
-
                 <header>
                     <h2>Register</h2>
                 </header>
@@ -86,7 +81,6 @@ function Register(props) {
                         name="password"
                     />
                 </div>
-
 
                 <button type="submit" id="submit" className="btn btn btn-primary" onClick={saveData}>
                     Submit
