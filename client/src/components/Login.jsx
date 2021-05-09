@@ -85,7 +85,7 @@ function Login (props) {
                 />
             </div>
 
-            <button type="submit" className="btn btn-info form-control preauth-loginbutton-style" onClick={logUserIn}>Login</button>
+            <button type="submit" className="btn btn-info form-control preauth-loginbutton-style" id="login_button" onClick={logUserIn}>Login</button>
         </div>
     );
 };
