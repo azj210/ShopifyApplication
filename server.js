@@ -7,7 +7,7 @@ const cors = require("cors");
 
 var corsOptions = {
   origin: 'https://alex-jiang-image-repository.netlify.app',
-  credentials: true,
+  optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 
