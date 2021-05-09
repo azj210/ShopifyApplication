@@ -1,25 +1,59 @@
-import logo from './logo.svg';
 import './App.css';
 
+import React, { useState } from 'react';
+import { BrowserRouter as Router, useHistory, Route } from 'react-router-dom';
+import DataService from './services/UserServices';
+
+import Home from './components/Home';
+import Redirect from './components/Redirect';
+/*
+import Register from './components/Register';
+import Login from './components/Login';
+import Account from './components/Account';
+*/
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+  const history = useHistory();
+
+	//check to see if user is authenticated
+	const [authenticated, setAuthenticated] = useState("loading");
+
+	const changeAuth = () => {
+    setAuthenticated(!authenticated);
+	};
+
+	//authenticated user
+	async function checkAuth() {
+		const token = localStorage.getItem('decisionMakerToken');
+		if (token) {
+      console.log(token);
+			const response = await DataService.checkToken(token)
+				.catch(e => {
+					console.log(e);
+				});
+			if (response.data.success === 1) {
+				setAuthenticated(true);
+			} else {
+				setAuthenticated(false);
+				localStorage.removeItem("decisionMakerToken");
+				localStorage.removeItem("decisionMakerUID");
+				history.go();
+			}
+		} else {
+			setAuthenticated(false);
+		}
+	};
+
+	return (
+		<Router>
+			<div className="App">
+				{authenticated === "loading" ?
+				<Route path="/" exact={true} component={() => <Redirect checkAuth={checkAuth}/>} /> :
+				<Route path="/" exact={true} component={() => <Home checkAuth={checkAuth} authenticated={authenticated} />} />}
+
+			</div>
+		</Router>
+	);
+};
 
 export default App;
