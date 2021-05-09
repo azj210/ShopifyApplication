@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter as Router } from 'react-router-dom';
 import { render } from "@testing-library/react";
 import { shallow, configure } from "enzyme";
 import Account from "./Account";
@@ -16,7 +17,11 @@ describe('Account Page Test', () => {
   }));
 
   beforeAll(() => {
-    render(<Account/>);
+    app = shallow(
+      <Router>
+        <Account/>
+      </Router>);
+    render(app);
   })
 
   it("sends call to write file", () => {
