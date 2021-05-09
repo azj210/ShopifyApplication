@@ -31,13 +31,13 @@ function App() {
 				.catch(e => {
 					console.log(e);
 				});
-			if (response.data.success === 1) {
+			if (response && response.data.success === 1) {
 				setAuthenticated(true);
 			} else {
 				setAuthenticated(false);
 				localStorage.removeItem("decisionMakerToken");
 				localStorage.removeItem("decisionMakerUID");
-				history.go();
+				//history.go();
 			}
 		} else {
 			setAuthenticated(false);

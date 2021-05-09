@@ -124,5 +124,14 @@ module.exports = {
 				data: results
 			});
 		});
-  }
+  },
+
+	//simple authentication function to decide if a page should be rendered
+	authenticateUser: (req, res) => {
+		console.log(req);
+		res.status(200).json({
+				success: 1,
+				message: "Valid Token"
+		});
+	}
 };
