@@ -10,7 +10,7 @@ configure({ adapter: new Adapter() });
 it("serves invalid login with invalid password", () => {
   const { getByText } = render(<Login />);
   var spy = jest.fn();
-  var changeSpy = jest.fn();
+  var spyClick = jest.fn();
   var wrapper = shallow(<Login onChange={spy} onClick={spyClick} />);
 
   wrapper.find("#userName").simulate("change", { target: { value: "abc123" } });
@@ -29,7 +29,7 @@ it("serves invalid login with invalid password", () => {
 it("serves valid login with valid password", () => {
   const { getByText } = render(<Login />);
   var spy = jest.fn();
-  var changeSpy = jest.fn();
+  var spyClick = jest.fn();
   var wrapper = shallow(<Login onChange={spy} onClick={spyClick} />);
 
   wrapper.find("#userName").simulate("change", { target: { value: "abc123" } });
@@ -44,11 +44,4 @@ it("serves valid login with valid password", () => {
   wrapper.find("#login_button").simulate("click");
   expect(DataService.login).toHaveBeenCalled();
   expect(DataService.login).toHaveBeenCalledTimes(1);
-});
-
-// snapshot testing
-test("Login component matches snapshot", () => {
-  const component = renderer.create(<Login />);
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
 });
