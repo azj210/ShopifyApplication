@@ -70,7 +70,7 @@ function Login (props) {
             <div className="form-group preauth-select-style">
                 <label for="password">Password</label>
                 <input
-                    id="pasword"
+                    id="password"
                     type="password"
                     className="form-control"
                     name="password"
