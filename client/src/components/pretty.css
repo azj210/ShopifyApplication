@@ -1,4 +1,4 @@
-.chat-room-container {
+.imgs-container {
     flex: 1;
     min-height: 100px;
     overflow: auto;
@@ -7,7 +7,7 @@
 }
 
 .img-item {
-    width: 55%;
+    width: 40%;
     margin: 8px;
     padding: 12px 8px;
     word-break: break-word;

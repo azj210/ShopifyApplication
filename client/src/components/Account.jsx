@@ -85,6 +85,7 @@ function Account (props) {
                     const imgBody = document.getElementById("i");
                     removeAllChildNodes(imgBody);
                     const newImg = document.createElement('img');
+                    newImg.classList.add("img-item");
                     newImg.src = blobURL;
                     imgBody.appendChild(newImg);
                     setNewSearch("");
@@ -109,6 +110,7 @@ function Account (props) {
                         const blobURL = createObjectURL(blob);
 
                         const newImg = document.createElement('img');
+                        newImg.classList.add("img-item");
                         newImg.src = blobURL;
                         imgBody.appendChild(newImg);
                     }
