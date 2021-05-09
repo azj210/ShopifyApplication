@@ -14,6 +14,8 @@ Instructions for the Application:
 5. You can delete images from your repository under "Delete an Image From Your Repository". Enter your file name in the text box then click "Delete Image". Note, you can only delete images in your own repository so while you can search for other users' images, you can not delete theirs. 
 6. To logout of your account click the "Logout" button.
 
+**Example work flow**: I login then add an image. I give the image a name of "myTestImage" and description of "t". I then click send image. Afterwards I make sure "Search By File Name" is in the dropdown and enter "myTestImage" in the search and display field, then click send search request. That image should now appear. I then change "Search By File Name" to "Search By File Description". I enter "t" in the search and display field and click send search request. Since the new file has the description "t" and I previously used another account to add 3 other images with description "t", 4 images (1 happy dog, 1 angry dog, 1 snippet of the MacOS Mojave background, and the new image) should appear. I can then try deleting the happy dog image who's name is "tester", but I would not be able to do so because another account added that image. What I can do is then type "myTestImage" into the delete field and delete it by clicking delete image. Now if I search for files with description "t", only the previous 3 images should show up.
+
 **Server** is deployed on heroku. Can send api requests to: https://shopify-app-backend.herokuapp.com/api
 
 **Unit tests** Continuous Integration environment is in Travis CI: https://travis-ci.com/github/azj210/ShopifyApplication
