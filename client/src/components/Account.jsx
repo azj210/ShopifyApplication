@@ -145,6 +145,9 @@ function Account (props) {
 
     return(
         <div>
+            <h1>
+                Send an Image to the Repository
+            </h1>
             <div>
                 <input type="text" placeholder="Write File Name..." value = {newName} onChange={handleNewName} id="nameInput" />
                 <input type="text" placeholder="Write File Description..." value = {newDescription} onChange={handleNewDescription} id="descriptionInput" />
@@ -153,6 +156,9 @@ function Account (props) {
                     Send Image
                 </button>
             </div>
+            <h1>
+                Search for Image(s) in the repository
+            </h1>
             <div>
                 <div className="form-group">
                     <input type="text" placeholder="Search and Display..." value = {newSearch} onChange={handleNewSearch} id="searchInput" />
@@ -166,6 +172,9 @@ function Account (props) {
                 </div>
                 <div className="imgs-container" id="i"></div>
             </div>
+            <h1>
+                Delete an Image From Your Repository
+            </h1>
             <div>
                 <input type="text" placeholder="Delete by File Name..." value = {newDelete} onChange={handleNewDelete} id="deleteInput" />
                 <button onClick={handleDeleteImage} className="btn btn btn-primary" id = "deleteMedia">
