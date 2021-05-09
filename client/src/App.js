@@ -6,8 +6,8 @@ import DataService from './services/UserServices';
 
 import Home from './components/Home';
 import Redirect from './components/Redirect';
-/*
 import Register from './components/Register';
+/*
 import Login from './components/Login';
 import Account from './components/Account';
 */
@@ -50,7 +50,7 @@ function App() {
 				{authenticated === "loading" ?
 				<Route path="/" exact={true} component={() => <Redirect checkAuth={checkAuth}/>} /> :
 				<Route path="/" exact={true} component={() => <Home checkAuth={checkAuth} authenticated={authenticated} />} />}
-
+        <Route path="/register" component={() => <Register checkAuth={checkAuth} authenticated={authenticated}/>} />
 			</div>
 		</Router>
 	);
