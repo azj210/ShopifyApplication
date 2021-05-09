@@ -111,7 +111,6 @@ describe('Test Image Creation', () => {
     const token = sign({ result: "results" }, "qwe1234", { expiresIn: "3h" });
     const uid = 4;
     const validFile = fs.createReadStream('mediaTest/test.png');
-    //const validFile = Buffer.from('mediaTest/test.png');
 
     beforeEach(() => {
         fs.writeFileSync('media/test.png');
@@ -122,7 +121,7 @@ describe('Test Image Creation', () => {
     afterAll(() => {
         fs.writeFileSync('media/test.png');
     })
-    /*
+
     it('serves unprocessable entity if file is not given', async () => {
         return request(app).post('/api/media/add')
         .field('uid', uid)
@@ -133,38 +132,6 @@ describe('Test Image Creation', () => {
             expect(response).toBeTruthy()});
     }, 10000);
 
-    it('serves unprocessable entity if uid is not given', async () => {
-        return request(app).post('/api/media/add')
-        .field('name', 'testFile')
-        .field('description', 't')
-        .attach('file', validFile)
-        .set('Authorization', 'Bearer ' + token)
-        .expect(422).then(response => {
-            expect(response).toBeTruthy()});
-    }, 10000);
-
-    it('serves unprocessable entity if file name is not given', async () => {
-        return request(app).post('/api/media/add')
-        .field('uid', uid)
-        .field('description', 't')
-        .attach('file', validFile)
-        .set('Authorization', 'Bearer ' + token)
-        .expect(422).then(response => {
-            expect(response).toBeTruthy()});
-    }, 10000);
-
-    it('serves unprocessable entity if file name is greater than 20 characters', () => {
-        const fileName = 't'.repeat(21);
-        return request(app).post('/api/media/add')
-        .field('uid', uid)
-        .field('name', fileName)
-        .field('description', 't')
-        .attach('file', validFile)
-        .set('Authorization', 'Bearer ' + token)
-        .expect(422).then(response => {
-            expect(response).toBeTruthy()});
-    }, 10000);
-    */
     it('processes a valid file creation request', () => {
         fs.unlinkSync('media/test.png');
 
@@ -175,7 +142,24 @@ describe('Test Image Creation', () => {
         .attach('file', validFile)
         .set('Authorization', 'Bearer ' + token)
         .expect(201).then(response => {
-            expect(response).toBeTruthy()});
+            expect(response).toBeTruthy();
+        });
+    }, 10000);
+});
+
+describe('Get Image', () => {
+    const token = sign({ result: "results" }, "qwe1234", { expiresIn: "3h" });
+    const uid = 4;
+
+    it('gets an image by image name', () => {
+        const data = { name: "testFile" };
+
+        return request(app).post('/api/media/getByName')
+        .set('Authorization', 'Bearer ' + token)
+        .send(data)
+        .expect(200).then(response => {
+            expect(response).toBeTruthy();
+        });
     }, 10000);
 });
 
@@ -190,7 +174,8 @@ describe('Test Image Deletion', () => {
         .set('Authorization', 'Bearer ' + token)
         .send(data)
         .expect(200).then(response => {
-            expect(response).toBeTruthy()});
+            expect(response).toBeTruthy();
+        });
     }, 10000);
 });
 
