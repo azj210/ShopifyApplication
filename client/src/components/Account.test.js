@@ -16,12 +16,14 @@ describe('Account Page Test', () => {
     }),
   }));
 
-  beforeAll(() => {
-    app = shallow(
-      <Router>
+  it("renders without crashing", () => {
+    const div = document.createElement("div");
+    ReactDOM.render(
+      <BrowserRouter>
         <Account/>
-      </Router>);
-    render(app);
+      </BrowserRouter>,
+      div
+    );
   })
 
   it("sends call to write file", () => {
