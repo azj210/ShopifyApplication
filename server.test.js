@@ -186,7 +186,7 @@ describe('Test Image Deletion', () => {
     it('processes a valid file deletion request', () => {
         const data = { uid: 4, name: "testFile" };
 
-        return request(app).delete('/api/media/delete')
+        return request(app).post('/api/media/delete')
         .set('Authorization', 'Bearer ' + token)
         .send(data)
         .expect(200).then(response => {

@@ -5,7 +5,7 @@ const multer  = require('multer');
 const upload = multer();
 
 router.post("/add", upload.single("file"), checkToken, addImage);
-router.delete("/delete", checkToken, deleteImage);
+router.post("/delete", checkToken, deleteImage);
 router.post("/getByName", checkToken, getImageByName);
 router.post("/getBySpec", checkToken, getImagesBySpec);
 

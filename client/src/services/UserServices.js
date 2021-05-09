@@ -25,7 +25,7 @@ const createImg = (token, data) => {
 
 const deleteImg = (token, data) => {
     const authHTTP = httpA(token);
-    return authHTTP.delete("/media/delete", data);
+    return authHTTP.post("/media/delete", data);
 };
 
 const getImgByName = (token, data) => {

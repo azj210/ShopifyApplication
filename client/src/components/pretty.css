@@ -1,0 +1,16 @@
+.chat-room-container {
+    flex: 1;
+    min-height: 100px;
+    overflow: auto;
+    border: 1px solid black;
+    border-radius: 7px 7px 0 0;
+}
+
+.img-item {
+    width: 55%;
+    margin: 8px;
+    padding: 12px 8px;
+    word-break: break-word;
+    border-radius: 4px;
+    color: white;
+}
