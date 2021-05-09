@@ -9,6 +9,7 @@ import Redirect from './components/Redirect';
 import Register from './components/Register';
 import Login from './components/Login';
 import Account from './components/Account';
+import Logout from './components/Logout';
 
 function App() {
   const history = useHistory();
@@ -51,6 +52,7 @@ function App() {
         <Route path="/register" component={() => <Register checkAuth={checkAuth} authenticated={authenticated}/>} />
         <Route path="/login" component={() => <Login checkAuth={checkAuth} authenticated={authenticated}/>} />
         <Route path="/account" component={() => <Account checkAuth={checkAuth} authenticated={authenticated}/>} />
+        <Route path="/logout" component={Logout} />
       </div>
 		</Router>
 	);
