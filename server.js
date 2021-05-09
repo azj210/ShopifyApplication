@@ -5,11 +5,7 @@ const userRouter = require("./backend/api/users/user.router");
 const mediaRouter = require("./backend/api/media/media.router");
 const cors = require("cors");
 
-const corsOptions = {
-  origin: 'https://alex-jiang-image-repository.netlify.app/',
-  credentials: true,
-};
-app.use(cors(corsOptions));
+app.use(cors());
 
 //since user passes in json, we convert it into javascript object
 app.use(express.json());
