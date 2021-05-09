@@ -12,10 +12,6 @@ function Login (props) {
 
     const [errorMessage, setErrorMessage] = useState("");
 
-    useEffect(() => {
-        props.checkAuth();
-    });
-
     function handleChange(event) {
         const { value, name } = event.target;
         setLoginInfo(prevValue => {
