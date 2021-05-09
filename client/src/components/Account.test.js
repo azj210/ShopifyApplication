@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import { shallow, configure } from "enzyme";
 import Account from "./Account";
 const renderer = require("react-test-renderer");
-import Adapter from "enzyme-adapter-react-16";
+import Adapter from "@wojtekmaj/enzyme-adapter-react-17";
 import DataService from "../services/UserServices";
 configure({ adapter: new Adapter() });
 
