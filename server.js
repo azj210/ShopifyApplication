@@ -6,7 +6,10 @@ const mediaRouter = require("./backend/api/media/media.router");
 const cors = require("cors");
 
 var corsOptions = {
-  origin: 'https://alex-jiang-image-repository.netlify.app',
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
