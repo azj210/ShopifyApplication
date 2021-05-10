@@ -28,7 +28,6 @@ function Login (props) {
         DataService.login(loginInfo)
             .then (response => {
                 if(response.data.success === 1) {
-                    console.log(response);
                     history.push("/");
                     localStorage.setItem('decisionMakerToken', response.data.token);
                     localStorage.setItem('decisionMakerUID', response.data.data.uid);
