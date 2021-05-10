@@ -6,19 +6,13 @@ const mediaRouter = require("./backend/api/media/media.router");
 const cors = require("cors");
 
 var corsOptions = {
-  origin: ['https://alex-jiang-image-repository.netlify.app', 'http://localhost:3000'],
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
   credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", '*');
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
 
 //since user passes in json, we convert it into javascript object
 app.use(express.json());
