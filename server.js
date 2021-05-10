@@ -3,16 +3,12 @@ const app = express();
 
 const userRouter = require("./backend/api/users/user.router");
 const mediaRouter = require("./backend/api/media/media.router");
-const cors = require("cors");
 
-var corsOptions = {
-  origin: '*',
-  allowedHeaders: ['Content-Type', 'Authorization', 'Content-Length', 'X-Requested-With', 'Accept'],
-  credentials: true,
-  methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
-  optionsSuccessStatus: 200
-};
-app.use(cors(corsOptions));
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
+  next();
 
 //since user passes in json, we convert it into javascript object
 app.use(express.json());
