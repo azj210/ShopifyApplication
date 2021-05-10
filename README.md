@@ -3,7 +3,8 @@ Alex Jiang's Shopify Application
 
 To start the application:
 1. Clone the repository via: git clone git@github.com:azj210/ShopifyApplication.git
-2. Add a .env file with these contents:
+2. cd into the root directory via: cd shopifyapplication
+3. Add a .env file (called .env) with these contents:
 
   REACT_APP_PORT=3306
 
